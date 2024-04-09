@@ -1,38 +1,31 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class BroomingController : MonoBehaviour
+public class BroomController : MonoBehaviour
 {
-    public float forceAmount = 0.1f;
+    public float forceAmount = 10f;
     public Rigidbody stoneRigidbody;
-    private bool leftArrowPressed = false;
-    private bool rightArrowPressed = false;
+    public Animator animator;
 
-    void Start()
+    public void Move(InputAction.CallbackContext context)
     {
-        stoneRigidbody = GetComponent<Rigidbody>();
+        Animate(context);
+        if (context.performed && stoneRigidbody.velocity.magnitude > 0.1f)
+        {         
+            Vector2 inputVector = context.ReadValue<Vector2>();
+            Vector2 force = inputVector * forceAmount;
+            stoneRigidbody.AddForce(force);
+        }
     }
 
-    void Update()
+    private void Animate(InputAction.CallbackContext context)
     {
-        // Detect arrow key presses
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            leftArrowPressed = true;
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            rightArrowPressed = true;
-            
-
-        // Apply force based on arrow key presses
-        if (leftArrowPressed && stoneRigidbody.velocity.magnitude > 0.1f)
+        if (context.control == Keyboard.current.leftArrowKey)
         {
-            Vector3 broomForce = Vector3.left * forceAmount;
-            stoneRigidbody.AddForce(broomForce);
-            leftArrowPressed = false; // Reset for next frame
-        }
-        if (rightArrowPressed && stoneRigidbody.velocity.magnitude > 0.1f)
+            animator.SetTrigger("LeftSweepingTrigger");
+        } else
         {
-            Vector3 broomForce = Vector3.right * forceAmount;
-            stoneRigidbody.AddForce(broomForce);
-            rightArrowPressed = false; // Reset for next frame
+            animator.SetTrigger("RightSweepingTrigger");
         }
     }
 }

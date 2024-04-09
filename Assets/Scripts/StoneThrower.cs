@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class StoneThrower : MonoBehaviour
 {
@@ -27,33 +28,57 @@ public class StoneThrower : MonoBehaviour
         ResetStone();
     }
 
-    private void OnMouseDown()
+    public void Move(InputAction.CallbackContext context)
     {
-        if (!thrown)
+        if (context.started)
         {
-            startTime = Time.time;
-            startPos = Input.mousePosition;
-            holding = true;
+            if (!thrown)
+            {
+                startTime = Time.time;
+                startPos = Input.mousePosition;
+                holding = true;
+            }
+        } else if (context.canceled)
+        {
+            endTime = Time.time;
+            endPos = Input.mousePosition;
+            swipeDistance = (endPos - startPos).magnitude;
+            swipeTime = endTime - startTime;
+
+            if (swipeTime < 0.5f && swipeDistance > 30f)
+            {
+                throwStone();
+            }
         }
     }
 
-    private void OnMouseDrag()
-    {
-        //PickupStone();
-    }
+    //private void OnMouseDown()
+    //{
+    //    if (!thrown)
+    //    {
+    //        startTime = Time.time;
+    //        startPos = Input.mousePosition;
+    //        holding = true;
+    //    }
+    //}
 
-    private void OnMouseUp()
-    {
-        endTime = Time.time;
-        endPos = Input.mousePosition;
-        swipeDistance = (endPos - startPos).magnitude;
-        swipeTime = endTime - startTime;
+    //private void OnMouseDrag()
+    //{
+    //    //PickupStone();
+    //}
 
-        if (swipeTime < 0.5f && swipeDistance > 30f)
-        {
-            throwStone();            
-        }
-    }
+    //private void OnMouseUp()
+    //{
+    //    endTime = Time.time;
+    //    endPos = Input.mousePosition;
+    //    swipeDistance = (endPos - startPos).magnitude;
+    //    swipeTime = endTime - startTime;
+
+    //    if (swipeTime < 0.5f && swipeDistance > 30f)
+    //    {
+    //        throwStone();            
+    //    }
+    //}
 
     void throwStone()
     {
