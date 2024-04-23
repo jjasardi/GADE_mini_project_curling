@@ -1,26 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class StoneThrower : MonoBehaviour
 {
-
     float startTime, endTime, swipeDistance, swipeTime;
     private Vector2 startPos;
     private Vector2 endPos;
 
-    public float MinSwipDist = 0;
+    public float MinSwipDist = 0f;
     private float StoneVelocity = 0;
     private float StoneSpeed = 0;
-    //public float MaxStoneSpeed = 200;
     private Vector3 angle;
 
-    private bool thrown, holding;
-    private Vector3 newPosition, resetPos;
+    private bool thrown;
+    public bool stoppedMoving;
+    private Vector3 resetPos;
     Rigidbody rb;
 
-    // Start is called before the first frame update
+    // shit variable because shit bug.
+    private bool isFirstCheck = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,7 +38,6 @@ public class StoneThrower : MonoBehaviour
             {
                 startTime = Time.time;
                 startPos = Input.mousePosition;
-                holding = true;
             }
         } else if (context.canceled)
         {
@@ -45,47 +46,18 @@ public class StoneThrower : MonoBehaviour
             swipeDistance = (endPos - startPos).magnitude;
             swipeTime = endTime - startTime;
 
-            if (swipeTime < 0.5f && swipeDistance > 30f)
+            if (swipeTime < 0.5f && swipeDistance > MinSwipDist)
             {
-                throwStone();
+                ThrowStone();
             }
         }
     }
 
-    //private void OnMouseDown()
-    //{
-    //    if (!thrown)
-    //    {
-    //        startTime = Time.time;
-    //        startPos = Input.mousePosition;
-    //        holding = true;
-    //    }
-    //}
-
-    //private void OnMouseDrag()
-    //{
-    //    //PickupStone();
-    //}
-
-    //private void OnMouseUp()
-    //{
-    //    endTime = Time.time;
-    //    endPos = Input.mousePosition;
-    //    swipeDistance = (endPos - startPos).magnitude;
-    //    swipeTime = endTime - startTime;
-
-    //    if (swipeTime < 0.5f && swipeDistance > 30f)
-    //    {
-    //        throwStone();            
-    //    }
-    //}
-
-    void throwStone()
+    void ThrowStone()
     {
         CalSpeed();
         CalAngle();
         rb.AddForce(new Vector3((angle.x * StoneSpeed), 0, (angle.z * StoneSpeed) * 2));
-        holding = false;
         thrown = true;
     }
 
@@ -99,27 +71,11 @@ public class StoneThrower : MonoBehaviour
         endTime = 0;
         swipeDistance = 0;
         swipeTime = 0;
-        thrown = holding = false;
+        thrown = false;
         rb.velocity = Vector3.zero;
         transform.position = resetPos;
     }
 
-    void PickupStone()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 2.57f; // You might need to adjust this value based on your scene setup
-        newPosition = Camera.main.ScreenToWorldPoint(mousePos);
-
-        transform.localPosition = Vector3.Lerp(transform.localPosition, newPosition, 80f * Time.deltaTime);
-    }
-
-    private void Update()
-    {
-        //if (holding)
-        //{
-        //    PickupStone();
-        //}
-    }
 
     private void CalAngle()
     {
@@ -134,5 +90,19 @@ public class StoneThrower : MonoBehaviour
         StoneSpeed = StoneVelocity * 40;
 
         swipeTime = 0;
+    }
+
+    private void FixedUpdate()
+    {
+        if (thrown && rb.velocity.magnitude < 0.1f)
+        {
+            if (isFirstCheck)
+            {
+                isFirstCheck = false;
+            } else
+            {
+                stoppedMoving = true;
+            }
+        }
     }
 }

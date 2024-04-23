@@ -11,7 +11,7 @@ public class BroomController : MonoBehaviour
     {
         Animate(context);
         if (context.performed && stoneRigidbody.velocity.magnitude > 0.1f)
-        {         
+        {
             Vector2 inputVector = context.ReadValue<Vector2>();
             Vector2 force = inputVector * forceAmount;
             stoneRigidbody.AddForce(force);
@@ -23,7 +23,8 @@ public class BroomController : MonoBehaviour
         if (context.control == Keyboard.current.leftArrowKey)
         {
             animator.SetTrigger("LeftSweepingTrigger");
-        } else
+        }
+        else
         {
             animator.SetTrigger("RightSweepingTrigger");
         }
