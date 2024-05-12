@@ -84,7 +84,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2, y: 1.268, z: 3.47}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7793384261856684655}
@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64740915fa81e5f44849aad54a8b62ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceAmount: 10
   stoneRigidbody: {fileID: 0}
   animator: {fileID: 3938659601649512300}
 --- !u!114 &7912832670774382377

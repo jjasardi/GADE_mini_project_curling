@@ -3,13 +3,19 @@ using UnityEngine.InputSystem;
 
 public class BroomController : MonoBehaviour
 {
-    public float forceAmount = 10f;
+    private float forceAmount = 50f;
     public Rigidbody stoneRigidbody;
     public Animator animator;
+    AudioManager audioManager;
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     public void Move(InputAction.CallbackContext context)
     {
         Animate(context);
+        audioManager.PlaySFX(audioManager.broomSweeping);
         if (context.performed && stoneRigidbody.velocity.magnitude > 0.1f)
         {
             Vector2 inputVector = context.ReadValue<Vector2>();

@@ -18,7 +18,8 @@ public class GameController : MonoBehaviour
 
     public CameraController cameraController;
 
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreTextRed;
+    public TextMeshProUGUI scoreTextBlue;
 
     private void Start()
     {
@@ -78,7 +79,16 @@ public class GameController : MonoBehaviour
         {
             playerScores[i] = players[i].GetPlayerScore();
         }
-        scoreText.text = "red player: " + playerScores[0] + "    blue player: " + playerScores[1];
+
+        int maxScore = 700;
+        float redTextSize = Mathf.Lerp(60f, 130f, (float)playerScores[0] / maxScore);
+        float blueTextSize = Mathf.Lerp(60f, 130f, (float)playerScores[1] / maxScore);
+
+        scoreTextRed.text = "red " + playerScores[0];
+        scoreTextBlue.text = "blue " + playerScores[1];
+
+        scoreTextRed.fontSize = redTextSize;
+        scoreTextBlue.fontSize = blueTextSize;
     }
 
     private System.Collections.IEnumerator CheckStoneStopped()
