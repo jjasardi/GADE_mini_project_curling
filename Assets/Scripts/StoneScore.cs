@@ -8,6 +8,11 @@ public class StoneScore : MonoBehaviour
     public Transform targetObject;
     private int score = 0;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void Start()
     {
         targetObject = GameObject.FindWithTag("Target").transform;

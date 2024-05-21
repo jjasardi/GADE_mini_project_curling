@@ -7,6 +7,11 @@ public class CameraController : MonoBehaviour
     public GameObject target;
     public float xOffset, yOffset, zOffset;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         

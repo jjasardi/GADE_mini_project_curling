@@ -10,7 +10,7 @@ public class StoneThrower : MonoBehaviour
     private Vector2 startPos;
     private Vector2 endPos;
 
-    private float MinSwipDist = 30f;
+    private readonly float MinSwipDist = 30f;
     private float StoneVelocity = 0;
     private float StoneSpeed = 0;
     private Vector3 angle;
@@ -46,7 +46,7 @@ public class StoneThrower : MonoBehaviour
             swipeDistance = (endPos - startPos).magnitude;
             swipeTime = endTime - startTime;
 
-            if (swipeTime < 0.5f && swipeDistance > MinSwipDist)
+            if (swipeTime < 5f && swipeDistance > MinSwipDist)
             {
                 ThrowStone();
             }
@@ -87,7 +87,7 @@ public class StoneThrower : MonoBehaviour
         if (swipeTime > 0)
             StoneVelocity = swipeDistance / (swipeDistance - swipeTime);
 
-        StoneSpeed = StoneVelocity * 1000;
+        StoneSpeed = StoneVelocity * 1100;
 
         swipeTime = 0;
     }

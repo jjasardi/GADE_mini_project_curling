@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6349d0b8b97b76b4cbc6cc676d04a65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinSwipDist: 0
   stoppedMoving: 0
 --- !u!64 &7728444144373187275
 MeshCollider:
@@ -213,3 +212,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51eaa95282620b1449d15336f9ff4915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetObject: {fileID: 0}

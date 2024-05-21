@@ -10,6 +10,7 @@ public class BroomController : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     public void Move(InputAction.CallbackContext context)

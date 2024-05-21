@@ -12,7 +12,6 @@ public class AudioManager : MonoBehaviour
     {
         if (!SFXSource.isPlaying)
         {
-
             SFXSource.PlayOneShot(clip);
         }
     }
