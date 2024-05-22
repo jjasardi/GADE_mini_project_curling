@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
     public enum ApplicationState { startingUp, titleScreen, Level1, Level2 }
     public ApplicationState currentState = ApplicationState.startingUp;
 
@@ -60,8 +61,10 @@ public class GameManager : MonoBehaviour
     public void LoadLevelTwo()
     {
         LoadScene("Scenes", "LevelTwo");
-        currentState = ApplicationState.Level2;
         DisableOldStones();
+        AudioManager audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager.ChangeBackgroundSound(audioManager.desertAtmosphere);
+        currentState = ApplicationState.Level2; 
     }
 
     /// Loads a scene if it's not already loaded

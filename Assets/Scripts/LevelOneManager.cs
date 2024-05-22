@@ -23,9 +23,8 @@ public class LevelOneManager : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         InitializePlayers();
-        StartRound();
-
         UpdateStonesLeftUI();
+        StartRound();
     }
 
     private void InitializePlayers()
@@ -40,7 +39,8 @@ public class LevelOneManager : MonoBehaviour
     private void StartRound()
     {
         gameManager.currentRound++;
-        if (gameManager.currentRound < 4)
+        Debug.Log(gameManager.currentRound);
+        if (gameManager.currentRound <= 4)
         {
             SpawnStone();
         }
@@ -57,7 +57,6 @@ public class LevelOneManager : MonoBehaviour
         currentPlayerStone = Instantiate(stonePrefab);
         gameManager.players[gameManager.currentPlayerIndex].AddStone(currentPlayerStone);
         cameraController.target = currentPlayerStone;
-        UpdateStonesLeftUI();
         StartCoroutine(CheckStoneStopped());
     }
 
@@ -69,16 +68,7 @@ public class LevelOneManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            //RestartGame();
-        }
         UpdateScore();
-    }
-
-    private void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void UpdateScore()
@@ -99,7 +89,8 @@ public class LevelOneManager : MonoBehaviour
     private System.Collections.IEnumerator CheckStoneStopped()
     {
         yield return new WaitUntil(() => currentPlayerStone.GetComponent<StoneThrower>().stoppedMoving);
-        Invoke(nameof(NextPlayerTurn), 3);
+        UpdateStonesLeftUI();
+        Invoke(nameof(NextPlayerTurn), 2.5f);
     }
 
     private void NextPlayerTurn()

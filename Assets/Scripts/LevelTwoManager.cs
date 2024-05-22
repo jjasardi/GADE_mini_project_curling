@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,18 +20,19 @@ public class LevelTwoManager : MonoBehaviour
     public TextMeshProUGUI redStonesLeft;
     public TextMeshProUGUI blueStonesLeft;
 
+    public WinnerScreen winnerScreen;
+
     private void Start()
     {
         gameManager = GameManager.Instance;
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
-        StartRound();
-
         UpdateStonesLeftUI();
+        StartRound();
     }
 
     private void StartRound()
     {
-        gameManager.currentRound++;
+        Debug.Log(gameManager.currentRound);
         if (gameManager.currentRound <= gameManager.maxRounds)
         {
             SpawnStone();
@@ -39,6 +41,7 @@ public class LevelTwoManager : MonoBehaviour
         {
             EndGame();
         }
+        gameManager.currentRound++;
     }
 
     private void SpawnStone()
@@ -48,22 +51,12 @@ public class LevelTwoManager : MonoBehaviour
         currentPlayerStone = Instantiate(stonePrefab);
         gameManager.players[gameManager.currentPlayerIndex].AddStone(currentPlayerStone);
         cameraController.target = currentPlayerStone;
-        UpdateStonesLeftUI();
         StartCoroutine(CheckStoneStopped());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            //RestartGame();
-        }
         UpdateScore();
-    }
-
-    private void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void UpdateScore()
@@ -91,6 +84,7 @@ public class LevelTwoManager : MonoBehaviour
     private System.Collections.IEnumerator CheckStoneStopped()
     {
         yield return new WaitUntil(() => currentPlayerStone.GetComponent<StoneThrower>().stoppedMoving);
+        UpdateStonesLeftUI();
         Invoke(nameof(NextPlayerTurn), 3);
     }
 
@@ -112,5 +106,16 @@ public class LevelTwoManager : MonoBehaviour
 
     private void EndGame()
     {
+        int[] playerScores = gameManager.getPlayerScores();
+        if (playerScores[0] > playerScores[1])
+        {
+            winnerScreen.ShowWinnerScreen("red");
+        } else if (playerScores[1] > playerScores[0])
+        {
+            winnerScreen.ShowWinnerScreen("blue");
+        } else
+        {
+            winnerScreen.ShowWinnerScreen("sportsmanship");
+        }
     }
 }

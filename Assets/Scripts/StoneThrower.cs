@@ -15,7 +15,7 @@ public class StoneThrower : MonoBehaviour
     private float StoneSpeed = 0;
     private Vector3 angle;
 
-    private bool thrown;
+    public bool thrown;
     public bool stoppedMoving;
     private Vector3 resetPos;
     Rigidbody rb;
@@ -41,14 +41,17 @@ public class StoneThrower : MonoBehaviour
             }
         } else if (context.canceled)
         {
-            endTime = Time.time;
-            endPos = Input.mousePosition;
-            swipeDistance = (endPos - startPos).magnitude;
-            swipeTime = endTime - startTime;
-
-            if (swipeTime < 5f && swipeDistance > MinSwipDist)
+            if (!thrown)
             {
-                ThrowStone();
+                endTime = Time.time;
+                endPos = Input.mousePosition;
+                swipeDistance = (endPos - startPos).magnitude;
+                swipeTime = endTime - startTime;
+
+                if (swipeTime < 5f && swipeDistance > MinSwipDist)
+                {
+                    ThrowStone();
+                }
             }
         }
     }
@@ -87,7 +90,7 @@ public class StoneThrower : MonoBehaviour
         if (swipeTime > 0)
             StoneVelocity = swipeDistance / (swipeDistance - swipeTime);
 
-        StoneSpeed = StoneVelocity * 1100;
+        StoneSpeed = StoneVelocity * 1000;
 
         swipeTime = 0;
     }
@@ -103,6 +106,14 @@ public class StoneThrower : MonoBehaviour
             {
                 stoppedMoving = true;
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("OutOfBoundary"))
+        {
+            stoppedMoving = true;
         }
     }
 }

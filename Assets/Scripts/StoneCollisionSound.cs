@@ -15,9 +15,8 @@ public class StoneCollisionSound : MonoBehaviour
         {
             float collisionIntensity = collision.relativeVelocity.magnitude;
 
-            // Set the volume of the audio source based on collision intensity
             float maxVolume = 1.0f;
-            float volume = Mathf.Clamp(collisionIntensity / 40f, 0f, maxVolume);
+            float volume = Mathf.Clamp(collisionIntensity / 70f, 0f, maxVolume);
 
             audioSource.volume = volume;
             audioSource.Play();

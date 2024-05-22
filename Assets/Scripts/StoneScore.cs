@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StoneScore : MonoBehaviour
 {
-    public Transform targetObject;
+    public Vector3 targetObjectPosition;
     private int score = 0;
 
     private void Awake()
@@ -15,20 +15,20 @@ public class StoneScore : MonoBehaviour
 
     private void Start()
     {
-        targetObject = GameObject.FindWithTag("Target").transform;
+        targetObjectPosition = GameObject.FindWithTag("Target").transform.position;
     }
 
     void Update()
     {
-        float distanceToTarget = Vector3.Distance(transform.position, targetObject.position);
+        float distanceToTarget = Vector3.Distance(transform.position, targetObjectPosition);
         score = CalculateScore(distanceToTarget);
     }
 
     private int CalculateScore(float distanceToTarget)
     {
         int maxScore = 100;
-        float maxDistance = 10f; // Adjust based on your scene scale
-        float minDistance = 0f; // Adjust based on your scene scale
+        float maxDistance = 10f;
+        float minDistance = 0f;
 
         float normalizedDistance = Mathf.Clamp01((maxDistance - distanceToTarget) / (maxDistance - minDistance));
         int score = Mathf.RoundToInt(normalizedDistance * maxScore);
