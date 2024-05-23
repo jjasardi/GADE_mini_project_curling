@@ -1434,7 +1434,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1010, y: 50}
+  m_SizeDelta: {x: 1300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1671687858
 MonoBehaviour:
@@ -1483,8 +1483,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 150
+  m_fontSizeBase: 150
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1978,15 +1978,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1baf56b52655a1f41b571788b4e256b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1StonePrefab: {fileID: 7237195999869986365, guid: 11e5887700f7fb04db18410e6580313b, type: 3}
-  player2StonePrefab: {fileID: 1660971859194540324, guid: 019baf4581f74ff4b96ca2919a00ec1e, type: 3}
-  player1BroomPrefab: {fileID: 5584260643356315833, guid: 7e5c1c480729b304cb9ee8e8e6a74c07, type: 3}
-  player2BroomPrefab: {fileID: 3670412787995064085, guid: ca2b7cc11e5840340a7ec72742d23d8f, type: 3}
   cameraController: {fileID: 0}
   scoreTextRed: {fileID: 532651764}
   scoreTextBlue: {fileID: 1429341824}
   redStonesLeft: {fileID: 1797535977}
   blueStonesLeft: {fileID: 1018609682}
+  player1StonePrefab: {fileID: 7237195999869986365, guid: 11e5887700f7fb04db18410e6580313b, type: 3}
+  player2StonePrefab: {fileID: 1660971859194540324, guid: 019baf4581f74ff4b96ca2919a00ec1e, type: 3}
+  player1BroomPrefab: {fileID: 5584260643356315833, guid: 7e5c1c480729b304cb9ee8e8e6a74c07, type: 3}
+  player2BroomPrefab: {fileID: 3670412787995064085, guid: ca2b7cc11e5840340a7ec72742d23d8f, type: 3}
   winnerScreen: {fileID: 30297257}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

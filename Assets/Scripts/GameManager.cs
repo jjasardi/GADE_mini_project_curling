@@ -91,11 +91,6 @@ public class GameManager : MonoBehaviour
     public List<Player> players = new List<Player>();
     public int currentRound = 0;
     public readonly int maxRounds = 8;
-
-    public GameObject player1StonePrefab;
-    public GameObject player2StonePrefab;
-    public GameObject player1BroomPrefab;
-    public GameObject player2BroomPrefab;
     public int currentPlayerIndex = 0;
 
     public int[] getPlayerScores()
