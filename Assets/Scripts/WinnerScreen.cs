@@ -28,8 +28,8 @@ public class WinnerScreen : MonoBehaviour
         WinnerText.text = "winner is " + winner;
     }
 
-    public void MainMenuButton()
+    public void QuitGame()
     {
-        GameManager.Instance.LoadTitleScene();
+        Application.Quit();
     }
 }
